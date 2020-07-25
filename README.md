@@ -45,3 +45,11 @@ The package was tested on Ubuntu 18.04 and ROS Melodic. You can install Ubuntu o
     ```bash
     roslaunch robot_simulation turtlebot3_world.launch
    ```
+
+Done by:
+
+-Uros Jankovic
+
+-Wojciech Szyszka
+
+-Stephanie Oduah
