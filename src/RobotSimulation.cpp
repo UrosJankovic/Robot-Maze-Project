@@ -95,7 +95,8 @@ void RobotSimulation::run() {
         double rightVel = 0.02;
 
         // PUT YOUR CODE HERE
-
+            leftVel = rightRange / 5.0;
+            rightVel = leftRange / 5.0;
 
         // ------------------
 
