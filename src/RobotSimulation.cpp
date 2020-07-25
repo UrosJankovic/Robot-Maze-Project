@@ -95,9 +95,16 @@ void RobotSimulation::run() {
         double rightVel = 0.02;
 
         // PUT YOUR CODE HERE
+        if(frontRange > 0.3)
+        {
             leftVel = rightRange / 5.0;
             rightVel = leftRange / 5.0;
-
+        }
+        else
+        {
+            leftVel = 0.2;
+            rightVel = -0.2;
+        }
         // ------------------
 
         publishVel(leftVel, rightVel);
@@ -106,6 +113,7 @@ void RobotSimulation::run() {
         loopRate.sleep();
     }
 }
+
 
 void RobotSimulation::publishVel(const double &leftVel, const double &rightVel) {
     // distance between wheels
