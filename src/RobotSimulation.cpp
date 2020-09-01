@@ -33,9 +33,7 @@ void RobotSimulation::run() {
 
     // additional variables
     // PUT YOUR CODE HERE
-
-
-
+    bool wallDetected = 0;    
     // ------------------
 
     while (ros::ok()) {
@@ -95,16 +93,42 @@ void RobotSimulation::run() {
         double rightVel = 0.02;
 
         // PUT YOUR CODE HERE
-        if(frontRange > 0.3)
-        {
-            leftVel = rightRange / 5.0;
-            rightVel = leftRange / 5.0;
+        if(frontRange && leftRange && rightRange){          // Wait for sensors to start reading data
+            if(!wallDetected){                              // Find a wall
+                if(leftRange > 1.0 && rightRange > 1.0 && frontRange > 1.0){
+                    leftVel = 0.15;
+                    rightVel = 0.2;
+                }
+                else if(leftRange < 1.0){
+                    wallDetected = 1;
+                    ROS_INFO_STREAM("Wall detected");
+
+                }
+                else{
+                    leftVel = 0.2;
+                    rightVel = -0.2;
+                }
+            }
+            else{
+                if(frontRange > 0.5){                   // If the obstacle is not in the front,
+                    if(leftRange < 0.7){                // then follow left wall
+                        leftVel = 0.2;
+                        rightVel = 0.15;
+                    }
+                    else
+                    {
+                        leftVel = 0.15;
+                        rightVel = 0.2;
+                    }
+                }
+                else{                                   // If there is an obstacle, then turn right
+                    ROS_INFO_STREAM("Front obstacle");
+                    leftVel = 0.2;
+                    rightVel = -0.2;
+                }
+            }
         }
-        else
-        {
-            leftVel = 0.2;
-            rightVel = -0.2;
-        }
+        
         // ------------------
 
         publishVel(leftVel, rightVel);
