@@ -40,7 +40,7 @@
     
     <!-- Load maze -->
     <include>
-      <uri>model://maze_complex</uri>
+      <uri>model://test_maze</uri>
     </include>
   </world>
 
